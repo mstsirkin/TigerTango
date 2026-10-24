@@ -1,5 +1,5 @@
-﻿<skin name="TigerTangoVideo" version="8" width="1920" height="1080" breaklineV="1" breaklineV2="1920"
-			comment="Video Skin for Argentine Tango DJs" author="Sean Ericson" image="Logo.png" preview="preview.png">
+﻿<skin name="TigerTangoVideo C" version="8" width="1920" height="1080" breaklineV="1" breaklineV2="1920"
+			comment="Revision C: song and event text share a left margin" author="Sean Ericson" image="Logo.png" preview="preview.png">
   <copyright>Free for all to use</copyright>
   <font name="Helvetica"/>
 <!--breaklineV="960"  -->
@@ -77,64 +77,64 @@
 					load_pulse_active 10000ms)"/>
 
 			<!-- Comments/lyrics occupy the lower area (screen y=480..1040).
-			     Both saved alignment modes center the event name on screen x=960.
+			     Both saved alignment modes share the song header's left margin at x=75.
 			     The 1200px text area ends before the right-hand logos. -->
 			<!-- Display Lyrics Only show if showLyrics is set to 1 and comments are not empty-->
 
-			<!-- Preserve the saved LEFT setting, but center event text in this edition. -->
-			<group name="lyrics_panel" x="+210" y="+440"
+			<!-- Saved LEFT setting: event text starts at the song header's left edge. -->
+			<group name="lyrics_panel" x="-75" y="+440"
 					visibility="var_equal '@$showLyrics' 0 ? false :
 								var_equal '@$lyricsLeftJustify' 0 ? false :
 							get_comment & param_equal '' ? false :
 							not load_pulse_active 10000ms">
 			<!-- Small text -->
 			<text x="+0" y="+0" width="1200" height="560" fontsize="48" color="#EDEFF2"
-			action="get_comment" align="center" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
+			action="get_comment" align="left" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
 			visibility="var_equal '@$lyricsFont' 3 ? true : false"/>
 
 			<!-- Medium text -->
 			<text x="+0" y="+0" width="1200" height="560" fontsize="64" color="#EDEFF2"
-			action="get_comment" align="center" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
+			action="get_comment" align="left" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
 			visibility="var_equal '@$lyricsFont' 0 ? true : false"
 			/>
 			<!-- Large Text -->
 			<text x="+0" y="+0" width="1200" height="560" fontsize="80" color="#EDEFF2"
-			action="get_comment" align="center" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
+			action="get_comment" align="left" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
 			visibility="var_equal '@$lyricsFont' 1 ? true : false"/>
 			<!-- Larger Text -->
 			<text x="+0" y="+0" width="1200" height="560" fontsize="96" color="#EDEFF2"
-			action="get_comment" align="center" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
+			action="get_comment" align="left" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
 			visibility="var_equal '@$lyricsFont' 2 ? true : false"
 			/>
 		</group>
 		<!-- Saved CENTER setting uses the same event-name layout. -->
-			<group name="lyrics_panel" x="+210" y="+440"
+			<group name="lyrics_panel" x="-75" y="+440"
 					visibility="var_equal '@$showLyrics' 0 ? false :
 								var_equal '@$lyricsLeftJustify' 1 ? false :
 							get_comment & param_equal '' ? false :
 							not load_pulse_active 10000ms">
 			<!-- Small text -->
 			<text x="+0" y="+0" width="1200" height="560" fontsize="48" color="#EDEFF2"
-			action="get_comment" align="center" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
+			action="get_comment" align="left" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
 			visibility="var_equal '@$lyricsFont' 3 ? true : false"
 			/>
 			<!-- Mid text -->
 			<text x="+0" y="+0" width="1200" height="560" fontsize="64" color="#EDEFF2"
-			action="get_comment" align="center" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
+			action="get_comment" align="left" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
 			visibility="var_equal '@$lyricsFont' 0 ? true : false"
 			/>
 			<!-- Large Text -->
 			<text x="+0" y="+0" width="1200" height="560" fontsize="80" color="#EDEFF2"
-			action="get_comment" align="center" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
+			action="get_comment" align="left" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
 			visibility="var_equal '@$lyricsFont' 1 ? true : false"/>
 			<!-- Larger Text -->
 			<text x="+0" y="+0" width="1200" height="560" fontsize="96" color="#EDEFF2"
-			action="get_comment" align="center" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
+			action="get_comment" align="left" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
 			visibility="var_equal '@$lyricsFont' 2 ? true : false"
 			/>
 		</group>
 
-			<!-- Song details and their waveform appear at the top in both sizes. -->
+			<!-- Song details share the event text's left margin in both sizes. -->
 			<group name="Normal Text Size" visibility="var_equal '@$largeTitleText' 0">
 				<blockwave deck="master" blocksize="3" zoom="2" color="#B64A12" center="center"
 							visibility="var_equal '@$hideWaveForm' 0">
@@ -142,7 +142,7 @@
 				</blockwave>
 			<!-- Genre and tanda counter -->
 				<group name="track_text" x="-75" y="+0">
-				<textzone group="horizontal" align="center">
+				<textzone group="horizontal" align="left">
 					<pos x="+0" y="+0"/>
 					<size width="1920-500" height="60"/>
 					<text fontsize="56" color="orangetext" weight="bold"
@@ -170,7 +170,7 @@
 									get_text ' – `get_year`'"/>
 				</textzone>
 				<!-- Track artist -->
-				<textzone group="horizontal" align="center" attachX="both" scroll="yes">
+				<textzone group="horizontal" align="left" attachX="both" scroll="yes">
 					<pos x="+0" y="+75"/>
 					<size width="1920-500" height="75"/>
 					<text fontsize="56" color="darktext" weight="bold" action="get_artist_before_feat & param_uppercase"/>
@@ -178,7 +178,7 @@
 				</textzone>
 
 				<!-- Track title -->
-				<textzone group="horizontal" align="center" attachX="both" scroll="yes">
+				<textzone group="horizontal" align="left" attachX="both" scroll="yes">
 					<pos x="+0" y="+140"/>
 					<size width="1920-500" height="100"/>
 					<text fontsize="56" color="orangetext" weight="bold" action="get_title_before_remix 'clean' & param_uppercase"/>
@@ -194,9 +194,9 @@
 			</blockwave>
 			<!-- Genre and tanda counter -->
 				<group name="track_text" x="-75" y="+0">
-				<textzone group="horizontal" align="center">
-					<pos x="-50" y="+0"/>
-					<size width="1920-400" height="160"/>
+				<textzone group="horizontal" align="left">
+					<pos x="+0" y="+0"/>
+					<size width="1920-500" height="160"/>
 					<text fontsize="56+56+12" color="orangetext" weight="bold"
 							action="var_equal '$songCounterRunning' 0 ?
 									var_equal '@$hideGenre' 1 ? '' : (get_genre & param_uppercase) : (
@@ -222,17 +222,17 @@
 									get_text ' – `get_year`'"/>
 				</textzone>
 				<!-- Track artist -->
-				<textzone group="horizontal" align="center" attachX="both" scroll="yes">
-					<pos x="-50" y="+125"/>
-					<size width="1920-400" height="160"/>
+				<textzone group="horizontal" align="left" attachX="both" scroll="yes">
+					<pos x="+0" y="+125"/>
+					<size width="1920-500" height="160"/>
 					<text fontsize="56+56+12" color="darktext" weight="bold" action="get_artist_before_feat & param_uppercase"/>
 					<text fontsize="56+56+12" color="darktext" weight="regular" action="get_featuring_after_artist & param_uppercase"/>
 				</textzone>
 
 				<!-- Track title -->
-				<textzone group="horizontal" align="center" attachX="both" scroll="yes">
-					<pos x="-50" y="+250"/>
-					<size width="1920-400" height="160"/>
+				<textzone group="horizontal" align="left" attachX="both" scroll="yes">
+					<pos x="+0" y="+250"/>
+					<size width="1920-500" height="160"/>
 					<text fontsize="56+56+12" color="orangetext" weight="bold" action="get_title_before_remix 'clean' & param_uppercase"/>
 				</textzone>
 				</group>

@@ -7,6 +7,9 @@ Version A is the first delivered song-at-top layout, with smaller comment
 text and the original left/center alignment controls. Its video XML matches
 the archived first ZIP. Version B enlarges the event text and centers it
 across the screen, including when the saved alignment setting is LEFT.
+Version C left-aligns both the song-information block and event text at a
+shared fixed margin. It has a distinct overlay/package name to make the
+installed revision identifiable without deleting application caches.
 
 Checks completed:
 - Both versions: all 25 drawable boxes fit the 1920x1080 canvas; song
@@ -20,6 +23,14 @@ Checks completed:
   Cycling through every size in the Wine UI was NOT conclusively verified.
 - Package integrity and equality between the packaged and tested video XML.
 - README.TXT is included in the Version B ZIP with installation steps.
+- Version C: live normal song-title rendering at 1280x720, with the 64px
+  event-name setting scaled to that output. Song and event text begin at
+  the same left margin. The screenshot is also the new picker thumbnail.
+- Version C: bounds/overlap checks and all four font-size mappings passed;
+  normal and large song-title boxes and both saved alignment states share
+  x=75 on the skin's 1920x1080 canvas. The font button changed its label from
+  MEDIUM to LARGE in the desktop test, but a complete rendered size cycle
+  was not verified. Large title mode was checked geometrically in this revision.
 
 Audio quality, controllers, external projector hardware, other operating
 systems, and long-running performances were not tested. Window repainting
@@ -28,6 +39,8 @@ under Wine occasionally needed an extra move/raise after resizing.
 The saved screenshots are real VirtualDJ output captured from the X display,
 not mockups. Release A contains the original normal/large screenshots;
 Release B contains the revised 64px event-name screenshot.
+Release C contains the shared-left-margin screenshot. Its only skin ZIP is
+TigerTangoVideo-C.zip, avoiding confusion with the unchanged main-interface ZIP.
 
 WORKING LINUX ENVIRONMENT
 
@@ -166,10 +179,11 @@ if that happens. No sign-in was required for the layout checks.
 To test the source checkout:
 
   cp -R "$repo_root/TigerTango" "$profile/Skins/"
-  cp -R "$repo_root/TigerTangoVideo" "$profile/VideoSkins/"
+  cp -R "$repo_root/TigerTangoVideo" "$profile/VideoSkins/TigerTangoVideo-C"
 
-To test a release ZIP instead, create VideoSkins/TigerTangoVideo and extract
-that ZIP directly into it. Use only one copy of the overlay in VideoSkins.
+To test revision C's release ZIP instead, create VideoSkins/TigerTangoVideo-C
+and extract that ZIP directly into it. For A/B, use TigerTangoVideo instead.
+Use only one copy of each overlay revision in VideoSkins.
 The packaged XML should match the source revision being tested.
 
   "$repo_root/tools/run-virtualdj-wine.sh" \
@@ -184,7 +198,8 @@ If testing Version A (which predates the launcher), use the equivalent:
     DXVK_LOG_LEVEL=warn wine "$test_root/virtualdj-2025/virtualdj.exe"
 
 In VirtualDJ, select Settings > Interface > Main interface > TigerTango
-(edit), then Video overlay > TigerTangoVideo (edit). Click the video preview
+(edit), then Video overlay > the TigerTangoVideo entry with C in its name
+(for revision C). Click the video preview
 to activate output. Select the skins in the UI rather than guessing their
 settings.xml identifiers; unpacked skins include a slash in their IDs.
 
@@ -213,6 +228,8 @@ event-name text, longer/multiline comments, artwork sizes, custom logo, and
 the next-song panel during automix. In Version B, check both saved LYRICS
 POS settings and all four LYRICS SIZE settings; event text should remain
 centered on screen x=960 and bottom-aligned at y=1040 on a 1920x1080 canvas.
+In Version C, song information and event text should instead share left
+margin x=75 in both title modes, at every event size and saved LYRICS POS.
 These are reproduction/checklist steps; consult WHAT WAS CHECKED above for
 which checks were actually completed during this work.
 
@@ -234,6 +251,8 @@ states, and all font variants. Preserve metadata actions and visibility
 conditions. Resolve relative positions against parent groups: the master
 group starts at x=150,y=40; Version B's text starts a further 210px right
 and is 1200px wide, placing its center at x=960.
+Version C places both text blocks 75px left of that parent, so the absolute
+left margin is x=75. Both blocks use left text alignment.
 
 Upstream's skin XML contains bare ampersands in VDJScript attributes.
 VirtualDJ accepts them; a strict XML parser does not. For inspection only,
@@ -242,11 +261,11 @@ skin merely to satisfy a strict parser.
 
 Run git diff --check and inspect the archive contents and CRCs with:
 
-  python3 -m zipfile -l dist/TigerTangoVideo.zip
-  python3 -m zipfile -t dist/TigerTangoVideo.zip
+  unzip -l dist/TigerTangoVideo-C.zip
+  unzip -t dist/TigerTangoVideo-C.zip
 
 The ZIP root must contain TigerTangoVideo.xml, TigerTangoVideo.png, Logo.png,
-preview.png, and (Version B) README.TXT. Compare the packaged XML byte for
+preview.png, and (Versions B/C) README.TXT. Compare the packaged XML byte for
 byte with the tested file. Keep downloaded applications, Wine prefixes, and
 temporary test buttons out of commits and release ZIPs.
 

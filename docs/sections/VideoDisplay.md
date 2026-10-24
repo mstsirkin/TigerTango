@@ -6,9 +6,9 @@ Song details (genre, tanda count, optional recording year, artist, and title)
 appear at the top in both **NORMAL** and **LARGE** title modes. The waveform
 moves with them, and the next-song panel is at the upper right.
 
-Comments/lyrics are bold, larger, and centered across the screen at the bottom
-of the lower area, so a milonga name is easy to read. Both saved **LYRICS POS**
-settings use this centered layout. Album art also occupies
+Comments/lyrics are bold and larger at the bottom of the lower area. The song
+information and event text share a fixed left margin in both title modes.
+Both saved **LYRICS POS** settings use this left-aligned layout. Album art also occupies
 the lower area, and branding/custom logos appear at the lower right. Comments
 still use the existing **SHOW LYRICS** control and appear after the initial
 10-second album-art interval.
@@ -18,9 +18,9 @@ move its text box to the bottom in that effect's position editor; the skin
 does not control the Text effect's position. See the
 [Text effect description](https://virtualdj.com/plugins/?addonid=80895).
 
-To install this copy, place the modified `TigerTangoVideo` folder in your
+To install revision C, unpack `TigerTangoVideo-C.zip` into a `TigerTangoVideo-C` folder in your
 VirtualDJ `VideoSkins` directory and select it under **Settings → Interface →
-Video Overlay**. Keep a backup of your existing folder, especially any custom
+Video Overlay**, choosing the entry with **C** in its name. Keep a backup of your existing folder, especially any custom
 `Logo.png`. You can locate the directory using **Edit this Skin**, then move
 up one folder. See [installation instructions](Installation.md).
 The distributed ZIP includes [README.TXT](../../TigerTangoVideo/README.TXT)
@@ -94,8 +94,8 @@ These buttons control elements on the TigerTango video screen.
 * **ART SIZE** toggles between displaying a large or smaller album art on the display.
 * **SHOW LYRICS** toggles whether to display lyrics. Lyrics can be saved in the *Comments* metadata section. See the [Lyrics](#lyrics) section for details.
 * **LYRICS SIZE** cycles between smaller, medium, and larger lyrics text fonts.
-* **LYRICS POS** is retained in the main interface; this event-name edition
-  always centers the text, including when the saved setting is LEFT.
+* **LYRICS POS** is retained in the main interface; revision C always aligns
+  the event text with the song text's left margin.
 * **SHOW NEXT** toggle whether to display a panel of what the next track will be.
 * **SHOW GENRE** toggle whether to display the track genre above the artist name.
 * **TITLE SIZE** toggle between 'NORMAL' and 'LARGE' title size. The Large size can be useful for reading on smaller screens. 
@@ -124,8 +124,8 @@ You can also include translations by including them in the comments as well (Any
 > [!WARNING]
 > Enabling lyrics will display any comments in your track comments metadatdata area
 
-The lower text area is 1200 pixels wide and 560 pixels high, centered on the
-screen and clear of the logos at the right. Text uses bold Helvetica at 48px
+The lower text area is 1200 pixels wide and 560 pixels high, with the same
+75px left margin as the song information. It stays clear of the logos at the right. Text uses bold Helvetica at 48px
 (SMALL), 64px (MEDIUM), 80px (LARGE), or 96px (LARGER). The medium size was
 previously 24px. Text remains bottom-aligned at every size.
 
