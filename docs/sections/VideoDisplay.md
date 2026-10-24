@@ -1,5 +1,30 @@
 
 # Video Skin
+## Layout in this copy
+
+Song details (genre, tanda count, optional recording year, artist, and title)
+appear at the top in both **NORMAL** and **LARGE** title modes. The waveform
+moves with them, and the next-song panel is at the upper right.
+
+Comments/lyrics are aligned to the bottom of the lower area, so a short message
+such as a milonga name appears near the bottom edge. Album art also occupies
+the lower area, and branding/custom logos appear at the lower right. Comments
+still use the existing **SHOW LYRICS** control and appear after the initial
+10-second album-art interval.
+
+If your milonga name comes from VirtualDJ's separate **Text** video effect,
+move its text box to the bottom in that effect's position editor; the skin
+does not control the Text effect's position. See the
+[Text effect description](https://virtualdj.com/plugins/?addonid=80895).
+
+To install this copy, place the modified `TigerTangoVideo` folder in your
+VirtualDJ `VideoSkins` directory and select it under **Settings → Interface →
+Video Overlay**. Keep a backup of your existing folder, especially any custom
+`Logo.png`. You can locate the directory using **Edit this Skin**, then move
+up one folder. See [installation instructions](Installation.md).
+
+The screenshot below shows the original layout.
+
 ![alt text](../images/VideoDisplayExample.png)
 The TigerTango Video skin allows you to display song information to an external screen or monitor. Information that can be displayed includes:
 
@@ -95,14 +120,16 @@ You can also include translations by including them in the comments as well (Any
 > [!WARNING]
 > Enabling lyrics will display any comments in your track comments metadatdata area
 
-The amount of lyrics that fit on the screen depend on the lyrics font size and the screen configuration. The following values are a rough estimate, but you may have to test based on your specific screen. 
+The lower text area is 560 pixels high to leave space for large song titles.
+Long lyrics may need a smaller font. The following capacities are approximate;
+check your text in the video preview.
 
 Size | Characters | Rows
 -----|-----|-----|
-Small | >150 | 38 |
-Medium | 132 | 28 | 
-Large | 98 | 22 |
-Larger | 85 | 18 | 
+Small | >150 | 28 |
+Medium | 132 | 20 |
+Large | 98 | 16 |
+Larger | 85 | 13 |
 
 The Font type used in TigerTangoVideo is 'Courier New', which is a monspaced font. A monospaced font is useful for aligning columns if you want to display lyrics and translations side by side. 
 
