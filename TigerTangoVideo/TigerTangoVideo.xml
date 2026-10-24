@@ -77,58 +77,59 @@
 					load_pulse_active 10000ms)"/>
 
 			<!-- Comments/lyrics occupy the lower area (screen y=480..1040).
-			     The large song header ends at y=450, leaving a 30px gap. -->
+			     Both saved alignment modes center the event name on screen x=960.
+			     The 1200px text area ends before the right-hand logos. -->
 			<!-- Display Lyrics Only show if showLyrics is set to 1 and comments are not empty-->
 
-			<!-- Left Justify -->
-			<group name="lyrics_panel" x="-30-45" y="+440"
+			<!-- Preserve the saved LEFT setting, but center event text in this edition. -->
+			<group name="lyrics_panel" x="+210" y="+440"
 					visibility="var_equal '@$showLyrics' 0 ? false :
 								var_equal '@$lyricsLeftJustify' 0 ? false :
 							get_comment & param_equal '' ? false :
 							not load_pulse_active 10000ms">
 			<!-- Small text -->
-			<text x="+0" y="+0" width="1920-500+45" height="560" fontsize="18" color="#EDEFF2"
-			action="get_comment" align="left" valign="bottom" multiline="yes" font="Courier New"
+			<text x="+0" y="+0" width="1200" height="560" fontsize="48" color="#EDEFF2"
+			action="get_comment" align="center" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
 			visibility="var_equal '@$lyricsFont' 3 ? true : false"/>
 
 			<!-- Medium text -->
-			<text x="+0" y="+0" width="1920-500+45" height="560" fontsize="24" color="#EDEFF2"
-			action="get_comment" align="left" valign="bottom" multiline="yes" font="Courier New"
+			<text x="+0" y="+0" width="1200" height="560" fontsize="64" color="#EDEFF2"
+			action="get_comment" align="center" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
 			visibility="var_equal '@$lyricsFont' 0 ? true : false"
 			/>
 			<!-- Large Text -->
-			<text x="+0" y="+0" width="1920-500+45" height="560" fontsize="30" color="#EDEFF2"
-			action="get_comment" align="left" valign="bottom" multiline="yes" font="Courier New"
+			<text x="+0" y="+0" width="1200" height="560" fontsize="80" color="#EDEFF2"
+			action="get_comment" align="center" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
 			visibility="var_equal '@$lyricsFont' 1 ? true : false"/>
 			<!-- Larger Text -->
-			<text x="+0" y="+0" width="1920-500+45" height="560" fontsize="38" color="#EDEFF2"
-			action="get_comment" align="left" valign="bottom" multiline="yes" font="Courier New"
+			<text x="+0" y="+0" width="1200" height="560" fontsize="96" color="#EDEFF2"
+			action="get_comment" align="center" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
 			visibility="var_equal '@$lyricsFont' 2 ? true : false"
 			/>
 		</group>
-		<!-- Center Justify -->
-			<group name="lyrics_panel" x="+0" y="+440"
+		<!-- Saved CENTER setting uses the same event-name layout. -->
+			<group name="lyrics_panel" x="+210" y="+440"
 					visibility="var_equal '@$showLyrics' 0 ? false :
 								var_equal '@$lyricsLeftJustify' 1 ? false :
 							get_comment & param_equal '' ? false :
 							not load_pulse_active 10000ms">
 			<!-- Small text -->
-			<text x="+0" y="+0" width="1920-500-60" height="560" fontsize="18" color="#EDEFF2"
-			action="get_comment" align="center" valign="bottom" multiline="yes" font="Courier New"
+			<text x="+0" y="+0" width="1200" height="560" fontsize="48" color="#EDEFF2"
+			action="get_comment" align="center" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
 			visibility="var_equal '@$lyricsFont' 3 ? true : false"
 			/>
 			<!-- Mid text -->
-			<text x="+0" y="+0" width="1920-500-60" height="560" fontsize="24" color="#EDEFF2"
-			action="get_comment" align="center" valign="bottom" multiline="yes" font="Courier New"
+			<text x="+0" y="+0" width="1200" height="560" fontsize="64" color="#EDEFF2"
+			action="get_comment" align="center" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
 			visibility="var_equal '@$lyricsFont' 0 ? true : false"
 			/>
 			<!-- Large Text -->
-			<text x="+0" y="+0" width="1920-500-60" height="560" fontsize="30" color="#EDEFF2"
-			action="get_comment" align="center" valign="bottom" multiline="yes" font="Courier New"
+			<text x="+0" y="+0" width="1200" height="560" fontsize="80" color="#EDEFF2"
+			action="get_comment" align="center" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
 			visibility="var_equal '@$lyricsFont' 1 ? true : false"/>
 			<!-- Larger Text -->
-			<text x="+0" y="+0" width="1920-500-60" height="560" fontsize="38" color="#EDEFF2"
-			action="get_comment" align="center" valign="bottom" multiline="yes" font="Courier New"
+			<text x="+0" y="+0" width="1200" height="560" fontsize="96" color="#EDEFF2"
+			action="get_comment" align="center" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
 			visibility="var_equal '@$lyricsFont' 2 ? true : false"
 			/>
 		</group>

@@ -1,0 +1,282 @@
+TIGERTANGO VIDEO: TESTING AND WINE SETUP
+Recorded 2026-10-24
+
+WHAT WAS CHECKED
+
+Version A is the first delivered song-at-top layout, with smaller comment
+text and the original left/center alignment controls. Its video XML matches
+the archived first ZIP. Version B enlarges the event text and centers it
+across the screen, including when the saved alignment setting is LEFT.
+
+Checks completed:
+- Both versions: all 25 drawable boxes fit the 1920x1080 canvas; song
+  headers do not overlap the lower text/artwork, next-song panel, or logos.
+- Version A: live normal and large song-title rendering, with centered and
+  left-aligned comments, in VirtualDJ under Wine.
+- Version B: live normal song-title rendering with the event name at 64px,
+  bold and centered, while the saved alignment was LEFT.
+- Version B: XML checks confirm SMALL/MEDIUM/LARGE/LARGER select
+  48/64/80/96px. The existing LYRICS SIZE button controls this setting.
+  Cycling through every size in the Wine UI was NOT conclusively verified.
+- Package integrity and equality between the packaged and tested video XML.
+- README.TXT is included in the Version B ZIP with installation steps.
+
+Audio quality, controllers, external projector hardware, other operating
+systems, and long-running performances were not tested. Window repainting
+under Wine occasionally needed an extra move/raise after resizing.
+
+The saved screenshots are real VirtualDJ output captured from the X display,
+not mockups. Release A contains the original normal/large screenshots;
+Release B contains the revised 64px event-name screenshot.
+
+WORKING LINUX ENVIRONMENT
+
+The successful test used Fedora 44, Wine 11.0 (Staging), VirtualDJ 2025
+b8800 (64 bit), DXVK 3.1 (x64), TigerVNC Xvnc 1.16.2, and Openbox 3.6.1.
+The virtual screen was 1920x1080 and reported 59.96 Hz.
+
+Install the following tools using your distribution's packages:
+  wine, 7z, curl, tar, python3, xrandr
+For a headless session also provide:
+  Xvnc (TigerVNC server), openbox
+Optional test tools:
+  ffmpeg, xdotool, ImageMagick's import command
+
+This is a reproduction recipe for that environment, not a claim that every
+Wine/driver combination works. The Wine prefix used here is separate from
+your usual Wine applications and VirtualDJ library.
+
+1. GET THE APPLICATION AND GRAPHICS LIBRARIES
+
+Run the examples in bash from this repository's root directory. Keep this
+terminal open so its test_root, profile, DISPLAY, and WINEPREFIX variables
+remain available. Replace :95 if that display is already in use.
+
+  repo_root="$PWD"
+  test_root=$(mktemp -d -t tigertango-wine.XXXXXX)
+  export WINEPREFIX="$test_root/prefix"
+
+VirtualDJ's normal download page is https://virtualdj.com/download/ .
+For this Wine test, use the specific older build that worked:
+
+  curl -fL --retry 3 \
+    https://download.virtualdj.com/b8800/C7A7165E/install_virtualdj_2025_b8800_pc.msi \
+    -o "$test_root/VirtualDJ-2025.msi"
+  7z x "$test_root/VirtualDJ-2025.msi" -o"$test_root/virtualdj-2025"
+
+7-Zip 26.04 extracted virtualdj.exe directly from the embedded CAB. Other
+7-Zip versions may first expose virtualdj.cab; extract that CAB too if the
+EXE is not present. Extraction was sufficient for this layout test; the
+normal Windows installer was not run. The tested EXE is 563875408 bytes.
+
+  curl -fL --retry 3 \
+    https://github.com/doitsujin/dxvk/releases/download/v3.1/dxvk-3.1.tar.gz \
+    -o "$test_root/dxvk-3.1.tar.gz"
+  tar -xzf "$test_root/dxvk-3.1.tar.gz" -C "$test_root"
+  sha256sum "$test_root/VirtualDJ-2025.msi" "$test_root/dxvk-3.1.tar.gz"
+
+SHA-256 values of the downloads used for the successful test:
+  VirtualDJ-2025.msi
+  577ce608e8848b61d90f67dc749a185231dca3913893d5b6eaaba40224a539e9
+  dxvk-3.1.tar.gz
+  30f9cc326874be344285582275446968cfa4c069db31ce56df312d6644179154
+
+The releases in this fork contain skins, not copies of VirtualDJ or DXVK.
+
+2. PROVIDE A DISPLAY WITH A NONZERO REFRESH RATE
+
+On a normal Linux desktop, keep the existing DISPLAY. For headless testing,
+start these processes and leave them running until the test is complete:
+
+  Xvnc :95 -geometry 1920x1080 -depth 24 -localhost -rfbport 5995 \
+    -SecurityTypes None -nolisten tcp -ac > "$test_root/xvnc.log" 2>&1 &
+  xvnc_pid=$!
+  export DISPLAY=:95
+  xrandr --current
+  openbox > "$test_root/openbox.log" 2>&1 &
+  openbox_pid=$!
+
+Wait for Xvnc to start if xrandr initially cannot connect. Confirm that the
+selected mode reports a nonzero refresh rate (59.96 Hz in our test).
+The example VNC listener is local-only and is for a temporary test session.
+Skip these steps if your normal desktop already provides a suitable display.
+
+The actual session used locally extracted Fedora Xvnc/Openbox packages
+instead of system installation. When doing that, Openbox also needs its
+matching openbox-libs and imlib2 libraries, LD_LIBRARY_PATH pointing to the
+extracted usr/lib64, and XDG_DATA_DIRS including the extracted usr/share.
+
+3. CREATE AND CONFIGURE AN ISOLATED WINE PREFIX
+
+  WINEDEBUG=-all WINEDLLOVERRIDES='mscoree,mshtml=' wineboot -u
+  wineserver -w
+
+Wine normally links some Windows user folders to your real home folders.
+For a test prefix, replace only those symlinks with empty local directories
+before starting VirtualDJ:
+
+python3 - <<'PY'
+import os
+from pathlib import Path
+users = Path(os.environ['WINEPREFIX']) / 'drive_c/users'
+for user in users.iterdir():
+    if user.is_symlink() or not user.is_dir():
+        continue
+    for name in ('Desktop', 'Documents', 'Downloads', 'Music',
+                 'Pictures', 'Videos', 'My Documents', 'My Music',
+                 'My Pictures', 'My Videos'):
+        folder = user / name
+        if folder.is_symlink():
+            folder.unlink()
+            folder.mkdir()
+PY
+
+This prefix isolates settings and libraries; it is not a security sandbox.
+
+  cp --remove-destination "$test_root/dxvk-3.1/x64/d3d11.dll" "$WINEPREFIX/drive_c/windows/system32/"
+  cp --remove-destination "$test_root/dxvk-3.1/x64/dxgi.dll" "$WINEPREFIX/drive_c/windows/system32/"
+
+--remove-destination replaces any prefix symlink instead of writing through
+it to a system DLL. These copies belong only in the new test prefix.
+
+In a fresh prefix, Wine normally uses your Linux login name for the Windows
+user directory. Adjust wine_user if the directory in drive_c/users differs:
+
+  wine_user=$(id -un)
+  profile="$WINEPREFIX/drive_c/users/$wine_user/AppData/Local/VirtualDJ"
+  mkdir -p "$profile/Skins" "$profile/VideoSkins"
+  wine reg add 'HKCU\Software\VirtualDJ' /v HomeFolder /t REG_SZ \
+    /d "$(winepath -w "$profile")" /f
+
+Before the FIRST launch, create settings.xml in this fresh test profile:
+
+  printf '%s\n' \
+    '<?xml version="1.0" encoding="UTF-8"?>' \
+    '<settings><internet>' \
+    '<checkUpdates>no</checkUpdates><dontLogin>yes</dontLogin>' \
+    '</internet></settings>' > "$profile/settings.xml"
+
+Do not overwrite an existing user's settings.xml with that minimal file.
+Automatic updates must stay disabled for this reproduction: one test run
+downloaded VirtualDJ 2026 and replaced the 2025 EXE. Re-extract the 2025 MSI
+if that happens. No sign-in was required for the layout checks.
+
+4. INSTALL THE SKINS AND LAUNCH
+
+To test the source checkout:
+
+  cp -R "$repo_root/TigerTango" "$profile/Skins/"
+  cp -R "$repo_root/TigerTangoVideo" "$profile/VideoSkins/"
+
+To test a release ZIP instead, create VideoSkins/TigerTangoVideo and extract
+that ZIP directly into it. Use only one copy of the overlay in VideoSkins.
+The packaged XML should match the source revision being tested.
+
+  "$repo_root/tools/run-virtualdj-wine.sh" \
+    "$WINEPREFIX" "$test_root/virtualdj-2025/virtualdj.exe" \
+    > "$test_root/virtualdj.log" 2>&1
+
+The launcher sets WINEDLLOVERRIDES='mscoree,mshtml=;d3d11,dxgi=n'.
+It requires a prepared prefix and does not install Wine, DXVK, or VirtualDJ.
+If testing Version A (which predates the launcher), use the equivalent:
+
+  WINEDEBUG=-all WINEDLLOVERRIDES='mscoree,mshtml=;d3d11,dxgi=n' \
+    DXVK_LOG_LEVEL=warn wine "$test_root/virtualdj-2025/virtualdj.exe"
+
+In VirtualDJ, select Settings > Interface > Main interface > TigerTango
+(edit), then Video overlay > TigerTangoVideo (edit). Click the video preview
+to activate output. Select the skins in the UI rather than guessing their
+settings.xml identifiers; unpacked skins include a slash in their IDs.
+
+5. RUN THE LAYOUT CHECKS
+
+Generate a silent sample if you do not want to use a real audio file:
+
+  ffmpeg -f lavfi -i anullsrc=r=44100:cl=stereo -t 40 \
+    -metadata title='La Cumparsita' -metadata artist='Carlos Di Sarli' \
+    -metadata genre='Tango' -metadata date='1955' "$test_root/sample.mp3"
+
+Load the sample on deck 1 and make it the master deck. Edit its Comments
+inside VirtualDJ to MILONGA DEL VIERNES. Our ffmpeg comment tag was not read
+as the desired VirtualDJ comment, so editing it in the application was used.
+Enable SHOW LYRICS, enable video, and allow the initial 10-second artwork
+interval to finish. The event name is per-track Comments, not a global field.
+
+For repeatable loading, the test temporarily added a button to the COPIED
+main interface in the prefix. Its VDJScript action loaded the test file and
+set @$showLyrics, @$showYear, @$hideWaveForm, @$largeTitleText,
+@$lyricsLeftJustify, and @$lyricsFont. This test-only button is not included
+in the source or distributed skins. It was not added to the video overlay.
+
+Check NORMAL and LARGE title sizes, artist/title/year, empty comments,
+event-name text, longer/multiline comments, artwork sizes, custom logo, and
+the next-song panel during automix. In Version B, check both saved LYRICS
+POS settings and all four LYRICS SIZE settings; event text should remain
+centered on screen x=960 and bottom-aligned at y=1040 on a 1920x1080 canvas.
+These are reproduction/checklist steps; consult WHAT WAS CHECKED above for
+which checks were actually completed during this work.
+
+Capture actual output from another terminal using the same DISPLAY:
+
+  DISPLAY=:95 import -window root "$test_root/layout.png"
+
+The test used xdotool to interact with the virtual desktop. Use mousemove
+without --sync (it hung when the pointer was already at the target), allow
+time before clicking, and inspect screenshots. Window IDs change between
+runs; inspect them with xprop -root _NET_CLIENT_LIST instead of hardcoding.
+Resizing sometimes left stale/black areas. Moving/raising the output window
+and allowing a fresh repaint produced complete captures.
+
+6. STATIC AND PACKAGE CHECKS
+
+Check bounds and overlaps on both song-title modes, both saved alignment
+states, and all font variants. Preserve metadata actions and visibility
+conditions. Resolve relative positions against parent groups: the master
+group starts at x=150,y=40; Version B's text starts a further 210px right
+and is 1200px wide, placing its center at x=960.
+
+Upstream's skin XML contains bare ampersands in VDJScript attributes.
+VirtualDJ accepts them; a strict XML parser does not. For inspection only,
+escape bare ampersands in memory before parsing. Do not rewrite the entire
+skin merely to satisfy a strict parser.
+
+Run git diff --check and inspect the archive contents and CRCs with:
+
+  python3 -m zipfile -l dist/TigerTangoVideo.zip
+  python3 -m zipfile -t dist/TigerTangoVideo.zip
+
+The ZIP root must contain TigerTangoVideo.xml, TigerTangoVideo.png, Logo.png,
+preview.png, and (Version B) README.TXT. Compare the packaged XML byte for
+byte with the tested file. Keep downloaded applications, Wine prefixes, and
+temporary test buttons out of commits and release ZIPs.
+
+7. STOP THE TEST SESSION
+
+Close VirtualDJ normally, then stop only this prefix's Wine processes:
+
+  WINEPREFIX="$test_root/prefix" wineserver -k
+
+If you started the headless display and window manager above, stop those
+specific processes with kill "$openbox_pid" "$xvnc_pid". Keep screenshots
+and logs before removing the temporary test_root directory.
+
+WHY EARLIER ATTEMPTS FAILED
+
+- Xvfb reported 0 Hz. The minidump showed integer divide-by-zero
+  (0xc0000094) in DXVK 2.7.1 dxgi.dll, in
+  dxvk::DxgiOutput::CacheMonitorData. Switching to Xvnc supplied 59.96 Hz.
+- With graphics initialization working, the VirtualDJ 2026 build downloaded
+  on 2026-10-23 called KERNEL32.dll.IsEnclaveTypeSupported. Wine 11.0
+  reported that function as unimplemented and aborted. Version 2025 b8800
+  avoided that call and rendered the skin successfully.
+- On this Fedora installation, the builtin d3d11/dxgi alternatives pointed
+  to DXVK. Setting d3d11,dxgi=b did NOT actually switch to WineD3D.
+- No extra Microsoft runtime DLL bundle was needed for the successful test.
+
+Sources:
+VirtualDJ downloads: https://virtualdj.com/download/
+TigerTango author's 2025 guidance: https://tangotoolkit.com/dj/software/#tigertango
+DXVK 3.1 (includes a VirtualDJ UI rendering fix):
+https://github.com/doitsujin/dxvk/releases/tag/v3.1
+Wine's kernelbase exports (check the relevant Wine version):
+https://github.com/wine-mirror/wine/blob/wine-11.0/dlls/kernelbase/kernelbase.spec

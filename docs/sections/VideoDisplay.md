@@ -6,8 +6,9 @@ Song details (genre, tanda count, optional recording year, artist, and title)
 appear at the top in both **NORMAL** and **LARGE** title modes. The waveform
 moves with them, and the next-song panel is at the upper right.
 
-Comments/lyrics are aligned to the bottom of the lower area, so a short message
-such as a milonga name appears near the bottom edge. Album art also occupies
+Comments/lyrics are bold, larger, and centered across the screen at the bottom
+of the lower area, so a milonga name is easy to read. Both saved **LYRICS POS**
+settings use this centered layout. Album art also occupies
 the lower area, and branding/custom logos appear at the lower right. Comments
 still use the existing **SHOW LYRICS** control and appear after the initial
 10-second album-art interval.
@@ -22,6 +23,8 @@ VirtualDJ `VideoSkins` directory and select it under **Settings â†’ Interface â†
 Video Overlay**. Keep a backup of your existing folder, especially any custom
 `Logo.png`. You can locate the directory using **Edit this Skin**, then move
 up one folder. See [installation instructions](Installation.md).
+The distributed ZIP includes [README.TXT](../../TigerTangoVideo/README.TXT)
+with the exact extraction layout and event-name setup steps.
 
 The screenshot below shows the original layout.
 
@@ -91,7 +94,8 @@ These buttons control elements on the TigerTango video screen.
 * **ART SIZE** toggles between displaying a large or smaller album art on the display.
 * **SHOW LYRICS** toggles whether to display lyrics. Lyrics can be saved in the *Comments* metadata section. See the [Lyrics](#lyrics) section for details.
 * **LYRICS SIZE** cycles between smaller, medium, and larger lyrics text fonts.
-* **LYRICS POS** toggle between left justification and center justification.
+* **LYRICS POS** is retained in the main interface; this event-name edition
+  always centers the text, including when the saved setting is LEFT.
 * **SHOW NEXT** toggle whether to display a panel of what the next track will be.
 * **SHOW GENRE** toggle whether to display the track genre above the artist name.
 * **TITLE SIZE** toggle between 'NORMAL' and 'LARGE' title size. The Large size can be useful for reading on smaller screens. 
@@ -120,23 +124,15 @@ You can also include translations by including them in the comments as well (Any
 > [!WARNING]
 > Enabling lyrics will display any comments in your track comments metadatdata area
 
-The lower text area is 560 pixels high to leave space for large song titles.
-Long lyrics may need a smaller font. The following capacities are approximate;
-check your text in the video preview.
+The lower text area is 1200 pixels wide and 560 pixels high, centered on the
+screen and clear of the logos at the right. Text uses bold Helvetica at 48px
+(SMALL), 64px (MEDIUM), 80px (LARGE), or 96px (LARGER). The medium size was
+previously 24px. Text remains bottom-aligned at every size.
 
-Size | Characters | Rows
------|-----|-----|
-Small | >150 | 28 |
-Medium | 132 | 20 |
-Large | 98 | 16 |
-Larger | 85 | 13 |
-
-The Font type used in TigerTangoVideo is 'Courier New', which is a monspaced font. A monospaced font is useful for aligning columns if you want to display lyrics and translations side by side. 
-
-While there is no automatic way to project both lyrics and translations, you can add translations by including them as a second column. 
-
-> [!NOTE]
-> If you are adding both lyrics and translations, it will likely display best if you toggle the left justification in the video options menue so that the lines to keep the columns aligned.
+This edition is intended for a prominent event name. Multiline comments still
+work, but larger fonts fit fewer lines. Use SMALL for longer text and check
+the video preview. Column-aligned lyrics/translations are better suited to
+the original skin's monospaced font and left-alignment option.
 
 ## Adding a Custom Logo. 
 Some users may want to add a custom logo, such as their own personal logo or an event logo. This can be done with the following steps: 

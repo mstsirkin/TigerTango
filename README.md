@@ -2,6 +2,17 @@
 ![alt text](<TigerTango Logo.png>)
 By: Sean Ericson (Sericson0@gmail.com)
 
+## Customized video layout in this fork
+
+Song details appear at the top, with a larger, centered event name at the
+bottom. Download the ZIP from [Releases](https://github.com/mstsirkin/TigerTango/releases).
+Release A preserves the first layout with smaller text; release B contains
+the enlarged, centered text and four sizes through **LYRICS SIZE**.
+
+See [README.TXT](TigerTangoVideo/README.TXT) for installation and event-name
+setup, and [TESTING.TXT](TESTING.TXT) for completed checks, VirtualDJ downloads,
+and the isolated Wine testing setup.
+
 Nothing kills the magic of the milonga like technical issues. Whether you are just starting out as a tango DJ, or are traveling to DJ the biggest festivals, you deserve a software that enables your creativity instead of hindering the flow you are striving so hard to create. This is why I created the TigerTango skin for Virtual DJ. It provides a layout custom suited for the needs of and requirements of tango DJs and other social dances.
 
 > [!IMPORTANT]
