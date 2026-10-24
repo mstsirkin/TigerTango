@@ -1,7 +1,67 @@
 TIGERTANGO VIDEO: TESTING AND WINE SETUP
 Recorded 2026-10-24
 
-WHAT WAS CHECKED
+CURRENT FEATURE: GLOBAL EVENT NAME AND DATE (2026-10-24.2)
+
+Update BOTH skins. The main interface provides EDIT NAME, EDIT DATE,
+SHOW EVENT, EVENT SIZE, and CLEAR EVENT under the video-preview gear,
+in the EVENT NAME / DATE section at the bottom of the options window.
+The video overlay displays persistent global variables independently of
+the current song, its Comments, and the album-art timer.
+
+Run the source checks from the repository root:
+
+  python3 tools/check-event-layout.py
+  git diff --check
+
+The geometry check covers the 1920x1080 canvas, shared x=75 left margin,
+the four event sizes, separation from the right-side logos, and the shorter
+artwork/Comments region above the event. It also checks persistent entry
+controls and the explicit switch-off of the separate master Text effect.
+The main-interface fragment is parsed separately because upstream has
+duplicate XML attributes elsewhere; no upstream XML is rewritten by the test.
+
+Manual reproduction in the prepared Wine environment below:
+1. Install both source skins. Load a song and activate video output.
+2. Open the video gear > EVENT NAME / DATE > EDIT NAME. Enter Milonga Zorro
+   and click OK. Use EDIT DATE to enter 24/10/2026 and click OK.
+3. Turn SHOW EVENT on. Verify both fields appear at the bottom and share
+   the song information's left edge. Artwork must stay above the footer.
+4. Cycle EVENT SIZE through MEDIUM, LARGE, LARGER, SMALL. Right-click to
+   cycle backwards. LYRICS SIZE must not change the event's font size.
+5. Load another track and switch the master deck. The event must remain.
+6. Activate the separate master Text effect, then switch SHOW EVENT off/on.
+   Verify the old effect switches off and only the event footer remains.
+7. Close VirtualDJ normally and reopen it. Verify the name, date, size, and
+   show/hide setting survive. Confirm CLEAR EVENT clears both fields and
+   hides them; empty fields must not display the numeric value 0.
+
+Keep all test assets under the ignored dist/work directory. The Wine prefix
+and extracted application are there too; do not store task files in /tmp.
+Test-only load/effect buttons belong in the COPIED main skin, never in the
+source or release. Both README.TXT copies must match and both ZIPs must
+include README.TXT at their root.
+
+Completed for this feature in VirtualDJ 2025 b8800 / Wine 11.0 / DXVK 3.1:
+- Entered Milonga Zorro and 24/10/2026 through the actual entry dialogs.
+- Rendered all four event sizes. The 96px date initially clipped; increasing
+  each footer line to 120px fixed it, verified again after a restart.
+- Loaded La Cumparsita on deck 1 and El Choclo on deck 2, then changed the
+  master deck. The event name/date remained unchanged.
+- Closed normally and reopened. The name, date, SHOW EVENT, and LARGER size
+  were saved in settings.xml and restored in the video output. Right-click
+  cycling returned the event size to MEDIUM.
+- Source geometry checks passed. Normal title mode was rendered; LARGE
+  title mode was checked geometrically for separation from the new footer.
+- CLEAR EVENT was pressed in the main options window. After normal shutdown,
+  both persistent fields were saved as empty strings and SHOW EVENT as 0.
+
+No native Windows 11 test, audio/controller test, or long-duration performance
+test was performed. The isolated Xvnc/Wine session sometimes retained stale
+window contents after raising/moving dialogs. Fullscreen video captures
+were used to inspect the rendered footer. Screenshots are real app output.
+
+HISTORY OF EARLIER LAYOUT CHECKS
 
 Version A is the first delivered song-at-top layout, with smaller comment
 text and the original left/center alignment controls. Its video XML matches
@@ -45,7 +105,7 @@ not mockups. Release A contains the original normal/large screenshots;
 Release B contains the revised 64px event-name screenshot.
 Release C contains the shared-left-margin screenshot. Its only skin ZIP is
 TigerTangoVideo-C.zip, avoiding confusion with the unchanged main-interface ZIP.
-The current package instead uses TigerTangoVideo.zip for easier replacement.
+Package 2026-10-24.1 instead uses TigerTangoVideo.zip for easier replacement.
 Its archive CRCs and packaged files were checked against the source, and the
 XML was compared with C to confirm that only the name/description changed.
 The name-only update was not separately run in VirtualDJ.
@@ -88,7 +148,8 @@ terminal open so its test_root, profile, DISPLAY, and WINEPREFIX variables
 remain available. Replace :95 if that display is already in use.
 
   repo_root="$PWD"
-  test_root=$(mktemp -d -t tigertango-wine.XXXXXX)
+  mkdir -p "$repo_root/dist/work"
+  test_root=$(mktemp -d "$repo_root/dist/work/tigertango-wine.XXXXXX")
   export WINEPREFIX="$test_root/prefix"
 
 VirtualDJ's normal download page is https://virtualdj.com/download/ .

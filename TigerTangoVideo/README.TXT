@@ -1,139 +1,136 @@
-TIGERTANGO VIDEO - SONG DETAILS AT THE TOP
-Package revision: 2026-10-24.1
+TIGERTANGO - GLOBAL EVENT NAME AND DATE
+Package revision: 2026-10-24.2
 
-This ZIP keeps revision C's layout and restores the original overlay name.
-Song details appear at the top. The skin's Comments/lyrics display is larger
-and bold at the bottom, sharing the song details' fixed left margin.
-An event name entered in VirtualDJ's separate Text effect uses that effect's
-own size and position controls; see SET THE EVENT NAME below.
-Use your existing TigerTango main interface to control the video options.
+Song details appear at the top. Enter your event name and date once in
+TigerTango's video options; they appear at the bottom, sharing the song
+information's LEFT MARGIN. EVENT SIZE sets their font size. No dragging,
+blank lines, or per-song Comments are needed.
 
-Download the release asset TigerTangoVideo.zip, not GitHub's automatic
-"Source code (zip)" archive. The ZIP, folder, and overlay keep the same
-TigerTangoVideo name for future updates. The revision is recorded here.
+IMPORTANT: UPDATE BOTH SKINS
+
+Download BOTH release assets: TigerTango.zip and TigerTangoVideo.zip.
+TigerTango.zip supplies the new entry buttons. TigerTangoVideo.zip draws
+the event name/date. Updating only one ZIP will not provide the feature.
+Use the release assets, not GitHub's automatic "Source code" archives.
+Both ZIPs include this README.TXT and retain their original skin names.
 
 INSTALL / UPDATE
 
-1. Find the VirtualDJ home folder:
+1. Find the active VirtualDJ home folder:
    Open VirtualDJ > Settings > Options and click the folder/cog icon in
-   the lower-right corner. Open the VideoSkins folder inside it.
+   the lower-right corner. Use the Skins and VideoSkins folders inside it.
 
-   Another way: Settings > Interface > Video Overlay > select an overlay
-   > Edit this Skin. In the folder that opens, go up to VideoSkins.
+   Common home locations (your installation may use a different folder):
+   Windows: C:\Users\YOUR-NAME\AppData\Local\VirtualDJ
+   Windows, older installations: C:\Users\YOUR-NAME\Documents\VirtualDJ
+   macOS: ~/Library/Application Support/VirtualDJ
+   macOS, older installations: ~/Documents/VirtualDJ
 
-   Common locations (your installation may use a different home folder):
-   Windows: C:\Users\YOUR-NAME\AppData\Local\VirtualDJ\VideoSkins
-   Windows, older installations:
-            C:\Users\YOUR-NAME\Documents\VirtualDJ\VideoSkins
-   macOS:   ~/Library/Application Support/VirtualDJ/VideoSkins
-   macOS, older installations: ~/Documents/VirtualDJ/VideoSkins
+2. Close VirtualDJ. Move previous TigerTango and TigerTangoVideo ZIP/folder
+   copies outside their Skins/VideoSkins folders as backups. Also move any
+   TigerTangoVideo-C copy out. Keep your customized Logo.png, if any.
 
-2. Close VirtualDJ. Move your old TigerTangoVideo folder or ZIP somewhere
-   outside VideoSkins as a backup. Also move any TigerTangoVideo-C folder
-   or ZIP outside VideoSkins if you installed that edition.
-   Keep any customized Logo.png.
+3. Unpack TigerTango.zip directly into Skins/TigerTango.
+   Unpack TigerTangoVideo.zip directly into VideoSkins/TigerTangoVideo.
+   The result must look like this, without an extra nested folder:
 
-3. Create a folder named TigerTangoVideo INSIDE VideoSkins.
-   Unpack ALL files from this ZIP directly into that folder.
-   The finished layout must be:
+   VirtualDJ home/
+     Skins/
+       TigerTango/
+         TigerTango.xml
+         graphics.png
+         icons.png
+         icons_daylight.png
+         preview.png
+         README.TXT
+     VideoSkins/
+       TigerTangoVideo/
+         TigerTangoVideo.xml
+         TigerTangoVideo.png
+         Logo.png
+         preview.png
+         README.TXT
 
-   VideoSkins/
-     TigerTangoVideo/
-       TigerTangoVideo.xml
-       TigerTangoVideo.png
-       Logo.png
-       preview.png
-       README.TXT
+   Alternative: put TigerTango.zip directly in Skins and TigerTangoVideo.zip
+   directly in VideoSkins without unpacking. Choose ONE installation method
+   for each skin, so there are no duplicate ZIP and unpacked copies.
 
-   Avoid an extra nested folder. The XML and image files
-   must be together. This overlay goes in VideoSkins, not the Skins folder
-   used for VirtualDJ's main interface.
+4. Restore your custom Logo.png into the unpacked TigerTangoVideo folder.
 
-   Alternative: copy TigerTangoVideo.zip directly into VideoSkins without
-   unpacking it. Choose ONE installation method so there is only one copy.
+5. Restart VirtualDJ. Under Settings > Interface, select:
+   Main interface: TigerTango
+   Video Overlay:  TigerTangoVideo
+   Unpacked copies may have (edit) appended to their names.
 
-4. If you have a customized Logo.png, restore it into the unpacked folder.
+WHERE TO ENTER THE EVENT NAME AND DATE
 
-5. Restart VirtualDJ. Open Settings > Interface > Video Overlay and select
-   TigerTangoVideo. An unpacked version may also have (edit) in its name.
-   Click the video preview in the TigerTango main interface to turn video on.
+1. In the TigerTango main screen, find the VIDEO preview near the top.
+   Click the GEAR button immediately beneath it. This opens
+   VIDEO CONFIGURATION OPTIONS.
 
-SET THE EVENT NAME
+2. At the bottom of that window, find EVENT NAME / DATE.
+   Click EDIT NAME. Type the milonga/event name, for example Milonga Zorro,
+   and click OK in the entry dialog.
 
-Using the separate Text video effect (as in the reported screenshots):
+3. Click EDIT DATE. Type the date exactly as you want it displayed, for
+   example 24/10/2026, and click OK. Leave it empty if no date is needed.
+   This is the event's date, not an automatically updating clock.
 
-1. Open the TEXT effect editor from TigerTango's video options.
-   Enter the event name and date, removing empty lines added for spacing.
+4. Click SHOW EVENT so it lights up. Click the VIDEO preview to turn on
+   video output if needed. The event appears immediately at the bottom,
+   independent of the song and the initial album-art interval.
 
-2. In the small preview on the right of the TEXT editor, drag the outlined
-   text box down to the bottom. Use this box to position the text instead
-   of adding empty lines in the editor.
+5. Click the button under EVENT SIZE to choose SMALL, MEDIUM, LARGE, or
+   LARGER. The sizes are 48, 64, 80, and 96 pixels on the skin's 1920x1080
+   canvas and scale with the video output. Right-click cycles backwards.
+   This control changes both the name and date. LYRICS SIZE still controls
+   song Comments only; TITLE SIZE controls the song information.
 
-3. Drag the box's edges to resize it and adjust the font size. Allow enough
-   height for both the event name and date. The reported shrinking with
-   extra empty lines is consistent with text being fitted into a fixed box.
+The name, date, size, and SHOW EVENT choice are shared by all songs and
+saved across normal VirtualDJ restarts. Edit them when the event changes.
+SHOW EVENT hides/shows the footer without clearing your entries.
+CLEAR EVENT clears both entries and hides the footer.
 
-4. Move the box horizontally while watching the full video output until
-   the event name's first letter lines up below the song title's first
-   letter. This alignment is manual: the skin does not position Text effects.
-   Leave Visible checked and Scroll unchecked for a static event name.
+Use one line per entry. Do not add blank lines to position the text.
+Long names wrap within the reserved area; use SMALL or shorten the name if
+it does not fit. The font size is selected explicitly instead of shrinking
+the entire event to fit additional blank lines.
 
-LYRICS SIZE and LYRICS POS do not control the Text effect. SHOW LYRICS can
-stay off when the event name is supplied by Text. The screenshots already
-show song details at the top, so the skin update has taken effect; the Text
-effect needs its own adjustment. These observations do not indicate a
-Windows 11-specific problem or a need to delete caches.
+SWITCHING FROM THE OLD TEXT EFFECT
 
-Optional alternative: using the song's Comments field:
+Turning SHOW EVENT on switches OFF the separate master Text effect to
+prevent duplicate event names. Its saved text/presets are not deleted.
+Enter your name/date with EDIT NAME / EDIT DATE; old Text effect contents
+are not imported automatically. Leave the separate Text effect off while
+using the new footer. Hiding the footer does not re-enable the old effect.
 
-1. Load a song. In TigerTango, right-click the music/pen (lyrics) button
-   beneath the video preview, enter the event name, and click OK.
-   This uses the song's Comments field. You can also edit Comments in the
-   song information panel. Use the same comment on each song if the event
-   name should stay the same when tracks change.
-
-2. Turn on SHOW LYRICS with the music/pen button or the video options gear.
-   The text appears after the existing initial 10-second album-art interval.
-   Songs with an empty Comments field show artwork instead of event text.
-
-3. Under the video options gear, set LYRICS SIZE to MEDIUM for the new
-   default-size appearance (64px on a 1920x1080 screen). SMALL, LARGE, and
-   LARGER use 48px, 80px, and 96px. Choose SMALL for a long event name.
-   All sizes are bold and left-aligned at the bottom. This edition keeps
-   the event text at the song text's left margin regardless of LYRICS POS.
-
-The text area supports multiple lines. Larger fonts fit fewer lines; check
-the full event name in the video preview. TITLE SIZE changes the song
-header and can remain NORMAL or LARGE.
+SHOW LYRICS is optional and still displays each song's Comments. With the
+event visible, artwork and Comments use a shorter area above the footer.
+When the event is hidden, they return to the previous full-height area.
 
 TROUBLESHOOTING
 
-Make sure you downloaded TigerTangoVideo.zip. TigerTango.zip contains
-the main DJ interface; installing it does not update this video layout.
+No EVENT NAME / DATE buttons: update TigerTango.zip in Skins, restart, and
+select the updated MAIN interface. Updating the video ZIP alone is not enough.
 
-Old layout still showing: remove duplicate ZIP/folder copies from VideoSkins,
-restart VirtualDJ, and select the updated overlay again.
-Use the VirtualDJ home folder opened by Settings > Options; an older
-Documents/VirtualDJ folder might not be the active location. A ZIP and an
-extracted folder are separate selectable copies, so replacing one does not
-update the other. In Settings > Interface > Video Overlay, select No Overlay
-and then explicitly select the updated overlay. Check the actual video
-output, rather than relying on the thumbnail in the picker.
-The updated thumbnail shows the shared-left-margin layout. Check the
-package revision at the top of the installed README.TXT when identifying
-your copy; the overlay name stays TigerTangoVideo.
+Buttons exist but no event on video: update TigerTangoVideo.zip in VideoSkins,
+select it as the Video Overlay, enter a name, enable SHOW EVENT, and turn
+video output on. Check the live video output rather than just the thumbnail.
 
-No cache deletion was needed in our test. Keep your database and other
-VirtualDJ settings intact. If the event name comes from the separate Text
-video effect, adjust that effect's own settings instead of LYRICS SIZE.
+Old layout still selected: use the ACTIVE home folder opened by Options.
+Move duplicate ZIP/folder copies out of Skins/VideoSkins, restart VirtualDJ,
+and reselect the updated skins. For the video, select No Overlay and then
+TigerTangoVideo if necessary. No cache/database deletion is required by
+this update. Check the revision at the top of this installed README.TXT.
 
-No event name: for Text, check that the effect is active, Visible is checked,
-and its box is on-screen. For Comments, check the current song's Comments,
-enable SHOW LYRICS, and wait for the initial album-art interval to finish.
+Duplicate event text: turn the separate master Text effect off, or toggle
+SHOW EVENT off and on to switch it off automatically. If the event name is
+also in song Comments, turn SHOW LYRICS off or edit those Comments.
+
+TESTING.TXT is a separate release asset with the VirtualDJ download,
+isolated Wine setup, completed checks, and testing limitations.
 
 Original project: https://github.com/sericson0/TigerTango
+This fork and releases: https://github.com/mstsirkin/TigerTango/releases
 VirtualDJ home folder help:
 https://virtualdj.com/wiki/How%2Bto%2BTransfer%2BTo%2BA%2BNew%2BComputer.html
-Text effect and sizing help:
-https://virtualdj.com/plugins/?addonid=80895
-https://virtualdj.com/forums/216802/VirtualDJ_Plugins/Text_on_screen.html

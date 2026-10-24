@@ -4,18 +4,26 @@ By: Sean Ericson (Sericson0@gmail.com)
 
 ## Customized video layout in this fork
 
-Song details appear at the top, with larger Comments/lyrics at the
-bottom. Download **TigerTangoVideo.zip** from [Releases](https://github.com/mstsirkin/TigerTango/releases/latest).
+Song details appear at the top, with a global event name and date at the
+bottom. Download **both TigerTango.zip and TigerTangoVideo.zip** from
+[Releases](https://github.com/mstsirkin/TigerTango/releases/latest): the main
+skin provides the entry buttons, and the video skin displays the text.
+
+Click the **gear beneath the VIDEO preview → EVENT NAME / DATE → EDIT NAME
+/ EDIT DATE**, then enable **SHOW EVENT**. **EVENT SIZE** changes the name
+and date size. These entries persist across songs and normal restarts and
+automatically share the song information's left margin. Enabling the event
+switches off the separate master Text effect to avoid duplicates.
+
 Release A preserves the first layout with smaller text; release B contains
 the enlarged, centered text and four sizes through **LYRICS SIZE**.
 Revision C aligns the song information and Comments at one fixed left
-margin. The current package keeps that layout and restores the original
-**TigerTangoVideo** overlay and ZIP name for easier updates. Revisions are
+margin. Current packages retain the original **TigerTangoVideo** overlay
+and ZIP name for easier updates. Revisions are
 recorded in the packaged README and release notes.
 
-Event names entered through VirtualDJ's separate **Text** effect use that
-effect's own position and size controls. Move and resize its preview box;
-**LYRICS SIZE** controls only the Comments display.
+The separate **Text** effect remains available with its own position and
+size controls. **LYRICS SIZE** controls only the per-song Comments display.
 
 See [README.TXT](TigerTangoVideo/README.TXT) for installation and event-name
 setup, and [TESTING.TXT](TESTING.TXT) for completed checks, VirtualDJ downloads,

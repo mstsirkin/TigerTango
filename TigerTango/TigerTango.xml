@@ -1220,6 +1220,7 @@ End of Definitions. Start of Windows.
 __________________________________________________________________________________________________
 -->
 <oninit action="set '$tandaLength' 4"/>
+<onload action="var_equal '@$ttEventInitialized' 1 ? nothing : set_var '@$ttEventName' '' & set_var '@$ttEventDate' '' & set '@$ttShowEvent' 0 & set '@$ttEventSize' 0 & set '@$ttEventInitialized' 1"/>
 
 <!-- Video Configuration Window -->
 <window name="VideoOptionsWindow" width="400" height="400+300" posx="960" posy="center" shown="false" color="#424346" breakline="700">
@@ -1475,6 +1476,50 @@ ________________________________________________________________________________
 
 	</group>
 		<group name="check_video_skin" x="+10" y="+360+40">
+	</group>
+
+	<!-- Persistent global event fields: shared with TigerTangoVideo. -->
+	<group name="event_settings" x="+10" y="+500">
+		<visual x="+0" y="+0" width="380" height="190">
+			<off shape="square" color="topmenu" radius="4" border_size="1" border="bordercolor2"/>
+		</visual>
+		<textzone x="+10" y="+8" width="360" height="20">
+			<text fontsize="16" align="center" color="texton" weight="bold" text="EVENT NAME / DATE"/>
+		</textzone>
+		<button class="button_master" x="+10" y="+38" width="110" height="28" textsize="13" text="EDIT NAME" query="false"
+			action="set_var_dialog '@$ttEventName' 'Event name for all songs. Enter one line, then click OK.'">
+			<tooltip>Enter the milonga or event name once for all songs.</tooltip>
+		</button>
+		<textzone x="+130" y="+38" width="240" height="28">
+			<text fontsize="14" align="left" color="texton" action="get_var '@$ttEventName'"/>
+		</textzone>
+		<button class="button_master" x="+10" y="+76" width="110" height="28" textsize="13" text="EDIT DATE" query="false"
+			action="set_var_dialog '@$ttEventDate' 'Event date, for example 24/10/2026. Leave empty to hide the date.'">
+			<tooltip>Enter the event date as you want it displayed. It does not change automatically.</tooltip>
+		</button>
+		<textzone x="+130" y="+76" width="240" height="28">
+			<text fontsize="14" align="left" color="texton" action="get_var '@$ttEventDate'"/>
+		</textzone>
+		<button class="button_master" x="+10" y="+128" width="110" height="30" textsize="13" text="SHOW EVENT"
+			query="var_equal '@$ttShowEvent' 1"
+			action="var_equal '@$ttShowEvent' 1 ? set '@$ttShowEvent' 0 : set '@$ttShowEvent' 1 & deck master effect_active 'text' off">
+			<tooltip>Show the event at the bottom of the video.\nTurning this on switches off the separate Text effect.</tooltip>
+		</button>
+		<textzone x="+135" y="+110" width="110" height="16">
+			<text fontsize="12" align="center" color="textdarker" text="EVENT SIZE"/>
+		</textzone>
+		<button class="button_master" x="+135" y="+128" width="110" height="30" textsize="13" query="false"
+			action="cycle '@$ttEventSize' 4" rightclick="cycle '@$ttEventSize' -4"
+			textaction="var_equal '@$ttEventSize' 1 ? get_text 'LARGE' : var_equal '@$ttEventSize' 2 ? get_text 'LARGER' : var_equal '@$ttEventSize' 3 ? get_text 'SMALL' : get_text 'MEDIUM'">
+			<tooltip>Change the event name and date font size.\nUse SMALL for long names. Right click cycles backwards.</tooltip>
+		</button>
+		<button class="button_master" x="+260" y="+128" width="110" height="30" textsize="13" text="CLEAR EVENT" query="false"
+			action="set_var '@$ttEventName' '' & set_var '@$ttEventDate' '' & set '@$ttShowEvent' 0">
+			<tooltip>Clear the event name and date, and hide the event.</tooltip>
+		</button>
+		<textzone x="+10" y="+164" width="360" height="18">
+			<text fontsize="12" align="center" color="texton" text="Saved for all songs. Edit once per event."/>
+		</textzone>
 	</group>
 
 	<button class="button_master" x="+10" y="+150"

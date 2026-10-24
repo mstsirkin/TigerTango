@@ -1,5 +1,5 @@
 ﻿<skin name="TigerTangoVideo" version="8" width="1920" height="1080" breaklineV="1" breaklineV2="1920"
-			comment="Song details at top; Comments at bottom with a shared left margin" author="Sean Ericson" image="Logo.png" preview="preview.png">
+			comment="Song details at top; global event name and date at bottom" author="Sean Ericson" image="Logo.png" preview="preview.png">
   <copyright>Free for all to use</copyright>
   <font name="Helvetica"/>
 <!--breaklineV="960"  -->
@@ -63,28 +63,41 @@
 				 Then show for 10 seconds and then hide) -->
 			<!-- Keep artwork below the song header, including large-title mode. -->
 			<cover x="+710-400" y="+440" width="700" height="560"
-				visibility="var_equal '@$albumArtSize' 1 ? false :
+				visibility="var_equal '@$ttShowEvent' 1 ? false :
+							var_equal '@$albumArtSize' 1 ? false :
 							var_equal '@$albumArtSize' 2 ? false :
 								(var_equal '@$showLyrics' 0 ? true :
 									get_comment & param_equal '' ? true :
 									load_pulse_active 10000ms)"/>
 				<!-- Small cover -->
 				<cover x="+710-200" y="+700" width="300" height="300"
-					visibility="var_equal '@$albumArtSize' 0 ? false :
+					visibility="var_equal '@$ttShowEvent' 1 ? false :
+					var_equal '@$albumArtSize' 0 ? false :
 					var_equal '@$albumArtSize' 2 ? false :
 					(var_equal '@$showLyrics' 0 ? true :
 					get_comment & param_equal '' ? true :
 					load_pulse_active 10000ms)"/>
 
-			<!-- Comments/lyrics occupy the lower area (screen y=480..1040).
-			     Both saved alignment modes share the song header's left margin at x=75.
-			     The 1200px text area ends before the right-hand logos. -->
+			<!-- Reserve screen y=810..1050 for the global event when enabled. -->
+			<cover x="+710-400" y="+440" width="700" height="320"
+				visibility="var_equal '@$ttShowEvent' 1 ?
+					(var_equal '@$albumArtSize' 0 ?
+						(var_equal '@$showLyrics' 0 ? true :
+							get_comment & param_equal '' ? true : load_pulse_active 10000ms) : false) : false"/>
+			<cover x="+710-200" y="+460" width="300" height="300"
+				visibility="var_equal '@$ttShowEvent' 1 ?
+					(var_equal '@$albumArtSize' 1 ?
+						(var_equal '@$showLyrics' 0 ? true :
+							get_comment & param_equal '' ? true : load_pulse_active 10000ms) : false) : false"/>
+
+			<!-- Comments share the song header's left margin at x=75.
+			     They end at y=1040 without the event, or y=800 with it. -->
 			<!-- Display Lyrics Only show if showLyrics is set to 1 and comments are not empty-->
 
-			<!-- Saved LEFT setting: event text starts at the song header's left edge. -->
+			<!-- Full-height Comments when the global event is hidden. -->
 			<group name="lyrics_panel" x="-75" y="+440"
 					visibility="var_equal '@$showLyrics' 0 ? false :
-								var_equal '@$lyricsLeftJustify' 0 ? false :
+								var_equal '@$ttShowEvent' 1 ? false :
 							get_comment & param_equal '' ? false :
 							not load_pulse_active 10000ms">
 			<!-- Small text -->
@@ -107,28 +120,27 @@
 			visibility="var_equal '@$lyricsFont' 2 ? true : false"
 			/>
 		</group>
-		<!-- Saved CENTER setting uses the same event-name layout. -->
+		<!-- Shorter Comments area leaves room for the global event. -->
 			<group name="lyrics_panel" x="-75" y="+440"
 					visibility="var_equal '@$showLyrics' 0 ? false :
-								var_equal '@$lyricsLeftJustify' 1 ? false :
-							get_comment & param_equal '' ? false :
-							not load_pulse_active 10000ms">
+								var_equal '@$ttShowEvent' 1 ?
+									(get_comment & param_equal '' ? false : not load_pulse_active 10000ms) : false">
 			<!-- Small text -->
-			<text x="+0" y="+0" width="1200" height="560" fontsize="48" color="#EDEFF2"
+			<text x="+0" y="+0" width="1200" height="320" fontsize="48" color="#EDEFF2"
 			action="get_comment" align="left" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
 			visibility="var_equal '@$lyricsFont' 3 ? true : false"
 			/>
 			<!-- Mid text -->
-			<text x="+0" y="+0" width="1200" height="560" fontsize="64" color="#EDEFF2"
+			<text x="+0" y="+0" width="1200" height="320" fontsize="64" color="#EDEFF2"
 			action="get_comment" align="left" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
 			visibility="var_equal '@$lyricsFont' 0 ? true : false"
 			/>
 			<!-- Large Text -->
-			<text x="+0" y="+0" width="1200" height="560" fontsize="80" color="#EDEFF2"
+			<text x="+0" y="+0" width="1200" height="320" fontsize="80" color="#EDEFF2"
 			action="get_comment" align="left" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
 			visibility="var_equal '@$lyricsFont' 1 ? true : false"/>
 			<!-- Larger Text -->
-			<text x="+0" y="+0" width="1200" height="560" fontsize="96" color="#EDEFF2"
+			<text x="+0" y="+0" width="1200" height="320" fontsize="96" color="#EDEFF2"
 			action="get_comment" align="left" valign="bottom" multiline="yes" font="Helvetica" weight="bold"
 			visibility="var_equal '@$lyricsFont' 2 ? true : false"
 			/>
@@ -241,5 +253,25 @@
 
 	</group>
 
+	<!-- Global fields are independent of the loaded track and artwork timer.
+	     Fixed-font, wrapping text avoids the native Text effect's auto-fit box. -->
+	<group name="event_footer" x="75" y="810" visibility="var_equal '@$ttShowEvent' 1">
+		<group name="event_medium" visibility="var_equal '@$ttEventSize' 0">
+			<text x="+0" y="+0" width="1420" height="120" fontsize="64" font="Helvetica" weight="bold" color="#EDEFF2" align="left" valign="top" multiline="yes" action="get_var '@$ttEventName'"/>
+			<text x="+0" y="+120" width="1420" height="120" fontsize="64" font="Helvetica" weight="bold" color="#EDEFF2" align="left" valign="top" multiline="yes" action="get_var '@$ttEventDate'"/>
+		</group>
+		<group name="event_large" visibility="var_equal '@$ttEventSize' 1">
+			<text x="+0" y="+0" width="1420" height="120" fontsize="80" font="Helvetica" weight="bold" color="#EDEFF2" align="left" valign="top" multiline="yes" action="get_var '@$ttEventName'"/>
+			<text x="+0" y="+120" width="1420" height="120" fontsize="80" font="Helvetica" weight="bold" color="#EDEFF2" align="left" valign="top" multiline="yes" action="get_var '@$ttEventDate'"/>
+		</group>
+		<group name="event_larger" visibility="var_equal '@$ttEventSize' 2">
+			<text x="+0" y="+0" width="1420" height="120" fontsize="96" font="Helvetica" weight="bold" color="#EDEFF2" align="left" valign="top" multiline="yes" action="get_var '@$ttEventName'"/>
+			<text x="+0" y="+120" width="1420" height="120" fontsize="96" font="Helvetica" weight="bold" color="#EDEFF2" align="left" valign="top" multiline="yes" action="get_var '@$ttEventDate'"/>
+		</group>
+		<group name="event_small" visibility="var_equal '@$ttEventSize' 3">
+			<text x="+0" y="+0" width="1420" height="120" fontsize="48" font="Helvetica" weight="bold" color="#EDEFF2" align="left" valign="top" multiline="yes" action="get_var '@$ttEventName'"/>
+			<text x="+0" y="+120" width="1420" height="120" fontsize="48" font="Helvetica" weight="bold" color="#EDEFF2" align="left" valign="top" multiline="yes" action="get_var '@$ttEventDate'"/>
+		</group>
+	</group>
 
 </skin>

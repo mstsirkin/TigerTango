@@ -6,6 +6,27 @@ Song details (genre, tanda count, optional recording year, artist, and title)
 appear at the top in both **NORMAL** and **LARGE** title modes. The waveform
 moves with them, and the next-song panel is at the upper right.
 
+### Enter the event name and date once
+
+Update **both TigerTango.zip and TigerTangoVideo.zip** from the current
+release. Click the **gear immediately beneath the VIDEO preview** in the
+main interface. At the bottom of **VIDEO CONFIGURATION OPTIONS**, use the
+**EVENT NAME / DATE** section:
+
+* **EDIT NAME** opens the event-name entry dialog; enter one line and click OK.
+* **EDIT DATE** opens the date entry dialog; enter the date as you want it
+  displayed, or leave it empty.
+* **SHOW EVENT** displays the name and date at the bottom. It also disables
+  the separate master Text effect to avoid duplicate text.
+* **EVENT SIZE** cycles SMALL/MEDIUM/LARGE/LARGER (48/64/80/96px at 1920x1080).
+* **CLEAR EVENT** clears both entries and hides the footer.
+
+The entries and display settings persist across tracks and normal restarts.
+The event begins at the same left margin as the song information, appears
+immediately, and uses an explicit font size. Do not add blank lines for
+spacing. Use a smaller size or shorter name if the text does not fit.
+Artwork and Comments use a shorter area above the footer while it is shown.
+
 Comments/lyrics are bold and larger at the bottom of the lower area. The song
 information and Comments share a fixed left margin in both title modes.
 Both saved **LYRICS POS** settings use this left-aligned layout. Album art also occupies
@@ -21,7 +42,8 @@ song title's first letter in the full output. The skin does not control
 the Text effect's position or size. See the
 [Text effect description](https://virtualdj.com/plugins/?addonid=80895).
 
-To install the current package, unpack `TigerTangoVideo.zip` into a `TigerTangoVideo` folder in your
+To install the current package, unpack `TigerTango.zip` into `Skins/TigerTango`
+and select it as the main interface. Unpack `TigerTangoVideo.zip` into a `TigerTangoVideo` folder in your
 VirtualDJ `VideoSkins` directory and select it under **Settings → Interface →
 Video Overlay → TigerTangoVideo**. Move older ZIP/folder copies, including
 `TigerTangoVideo-C` if installed, outside `VideoSkins` as a backup. Preserve any custom
