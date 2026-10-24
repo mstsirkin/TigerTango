@@ -4,13 +4,18 @@ By: Sean Ericson (Sericson0@gmail.com)
 
 ## Customized video layout in this fork
 
-Song details appear at the top, with a larger event name at the
-bottom. Download the ZIP from [Releases](https://github.com/mstsirkin/TigerTango/releases).
+Song details appear at the top, with larger Comments/lyrics at the
+bottom. Download **TigerTangoVideo.zip** from [Releases](https://github.com/mstsirkin/TigerTango/releases/latest).
 Release A preserves the first layout with smaller text; release B contains
 the enlarged, centered text and four sizes through **LYRICS SIZE**.
-Revision C aligns the song information and event name at one fixed left
-margin. Its ZIP and overlay name include **C** to distinguish it from older
-installed copies.
+Revision C aligns the song information and Comments at one fixed left
+margin. The current package keeps that layout and restores the original
+**TigerTangoVideo** overlay and ZIP name for easier updates. Revisions are
+recorded in the packaged README and release notes.
+
+Event names entered through VirtualDJ's separate **Text** effect use that
+effect's own position and size controls. Move and resize its preview box;
+**LYRICS SIZE** controls only the Comments display.
 
 See [README.TXT](TigerTangoVideo/README.TXT) for installation and event-name
 setup, and [TESTING.TXT](TESTING.TXT) for completed checks, VirtualDJ downloads,

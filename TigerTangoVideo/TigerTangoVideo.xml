@@ -1,5 +1,5 @@
-﻿<skin name="TigerTangoVideo C" version="8" width="1920" height="1080" breaklineV="1" breaklineV2="1920"
-			comment="Revision C: song and event text share a left margin" author="Sean Ericson" image="Logo.png" preview="preview.png">
+﻿<skin name="TigerTangoVideo" version="8" width="1920" height="1080" breaklineV="1" breaklineV2="1920"
+			comment="Song details at top; Comments at bottom with a shared left margin" author="Sean Ericson" image="Logo.png" preview="preview.png">
   <copyright>Free for all to use</copyright>
   <font name="Helvetica"/>
 <!--breaklineV="960"  -->

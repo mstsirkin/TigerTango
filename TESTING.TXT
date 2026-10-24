@@ -10,6 +10,10 @@ across the screen, including when the saved alignment setting is LEFT.
 Version C left-aligns both the song-information block and event text at a
 shared fixed margin. It has a distinct overlay/package name to make the
 installed revision identifiable without deleting application caches.
+Package 2026-10-24.1 keeps C's layout and restores the original TigerTangoVideo
+name. Its README distinguishes the separate Text effect from Comments and
+documents moving/resizing the Text effect box. The only XML changes from C
+are the root name and description; no rendering code or geometry changed.
 
 Checks completed:
 - Both versions: all 25 drawable boxes fit the 1920x1080 canvas; song
@@ -41,6 +45,24 @@ not mockups. Release A contains the original normal/large screenshots;
 Release B contains the revised 64px event-name screenshot.
 Release C contains the shared-left-margin screenshot. Its only skin ZIP is
 TigerTangoVideo-C.zip, avoiding confusion with the unchanged main-interface ZIP.
+The current package instead uses TigerTangoVideo.zip for easier replacement.
+Its archive CRCs and packaged files were checked against the source, and the
+XML was compared with C to confirm that only the name/description changed.
+The name-only update was not separately run in VirtualDJ.
+
+USER SCREENSHOTS: TEXT EFFECT (WINDOWS 11 PRO)
+
+The reported screenshots show EFFECTS = TEXT active, SHOW LYRICS off, and
+the event name/date in the separate TEXT editor. Song information is already
+at the top, confirming that a modified skin is loaded. The green event name
+is therefore not the Comments layer changed in A/B/C.
+The Text effect's small preview has a shallow text box near the top. Extra
+blank lines coinciding with smaller text are consistent with fitting more
+lines into that fixed box. This is an inference from the screenshots, not a
+reproduced Windows test. The effect's documented sizing control is its box:
+https://virtualdj.com/forums/216802/VirtualDJ_Plugins/Text_on_screen.html
+Remove the blank lines, move the box to the bottom, and resize it in the
+Text effect editor. LYRICS SIZE does not affect this separate effect.
 
 WORKING LINUX ENVIRONMENT
 
@@ -179,11 +201,12 @@ if that happens. No sign-in was required for the layout checks.
 To test the source checkout:
 
   cp -R "$repo_root/TigerTango" "$profile/Skins/"
-  cp -R "$repo_root/TigerTangoVideo" "$profile/VideoSkins/TigerTangoVideo-C"
+  cp -R "$repo_root/TigerTangoVideo" "$profile/VideoSkins/TigerTangoVideo"
 
-To test revision C's release ZIP instead, create VideoSkins/TigerTangoVideo-C
-and extract that ZIP directly into it. For A/B, use TigerTangoVideo instead.
-Use only one copy of each overlay revision in VideoSkins.
+To test the current release ZIP instead, create VideoSkins/TigerTangoVideo
+and extract TigerTangoVideo.zip directly into it. The archived C release
+uses TigerTangoVideo-C for its ZIP/folder and includes C in the overlay name.
+Use only one installed copy of the overlay when testing replacement updates.
 The packaged XML should match the source revision being tested.
 
   "$repo_root/tools/run-virtualdj-wine.sh" \
@@ -198,8 +221,7 @@ If testing Version A (which predates the launcher), use the equivalent:
     DXVK_LOG_LEVEL=warn wine "$test_root/virtualdj-2025/virtualdj.exe"
 
 In VirtualDJ, select Settings > Interface > Main interface > TigerTango
-(edit), then Video overlay > the TigerTangoVideo entry with C in its name
-(for revision C). Click the video preview
+(edit), then Video overlay > TigerTangoVideo (edit). Click the video preview
 to activate output. Select the skins in the UI rather than guessing their
 settings.xml identifiers; unpacked skins include a slash in their IDs.
 
@@ -261,11 +283,11 @@ skin merely to satisfy a strict parser.
 
 Run git diff --check and inspect the archive contents and CRCs with:
 
-  unzip -l dist/TigerTangoVideo-C.zip
-  unzip -t dist/TigerTangoVideo-C.zip
+  unzip -l dist/TigerTangoVideo.zip
+  unzip -t dist/TigerTangoVideo.zip
 
 The ZIP root must contain TigerTangoVideo.xml, TigerTangoVideo.png, Logo.png,
-preview.png, and (Versions B/C) README.TXT. Compare the packaged XML byte for
+preview.png, and (Version B onward) README.TXT. Compare the packaged XML byte for
 byte with the tested file. Keep downloaded applications, Wine prefixes, and
 temporary test buttons out of commits and release ZIPs.
 

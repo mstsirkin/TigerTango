@@ -7,20 +7,24 @@ appear at the top in both **NORMAL** and **LARGE** title modes. The waveform
 moves with them, and the next-song panel is at the upper right.
 
 Comments/lyrics are bold and larger at the bottom of the lower area. The song
-information and event text share a fixed left margin in both title modes.
+information and Comments share a fixed left margin in both title modes.
 Both saved **LYRICS POS** settings use this left-aligned layout. Album art also occupies
 the lower area, and branding/custom logos appear at the lower right. Comments
 still use the existing **SHOW LYRICS** control and appear after the initial
 10-second album-art interval.
 
 If your milonga name comes from VirtualDJ's separate **Text** video effect,
-move its text box to the bottom in that effect's position editor; the skin
-does not control the Text effect's position. See the
+remove blank lines added for spacing, drag its outlined box to the bottom
+in the effect's small preview, and resize the box to adjust the font size.
+Move it horizontally until the event name's first letter aligns with the
+song title's first letter in the full output. The skin does not control
+the Text effect's position or size. See the
 [Text effect description](https://virtualdj.com/plugins/?addonid=80895).
 
-To install revision C, unpack `TigerTangoVideo-C.zip` into a `TigerTangoVideo-C` folder in your
+To install the current package, unpack `TigerTangoVideo.zip` into a `TigerTangoVideo` folder in your
 VirtualDJ `VideoSkins` directory and select it under **Settings → Interface →
-Video Overlay**, choosing the entry with **C** in its name. Keep a backup of your existing folder, especially any custom
+Video Overlay → TigerTangoVideo**. Move older ZIP/folder copies, including
+`TigerTangoVideo-C` if installed, outside `VideoSkins` as a backup. Preserve any custom
 `Logo.png`. You can locate the directory using **Edit this Skin**, then move
 up one folder. See [installation instructions](Installation.md).
 The distributed ZIP includes [README.TXT](../../TigerTangoVideo/README.TXT)
